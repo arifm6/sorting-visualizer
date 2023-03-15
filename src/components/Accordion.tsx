@@ -1,8 +1,8 @@
+import { AnimationContext } from "@/contexts/AnimationContext";
 import { SortingAlgorithmContext } from "@/contexts/SortingAlgorithmContext";
 import { SortingArrayContext } from "@/contexts/SortingArrayContext";
 import React, { useContext, useEffect } from "react";
 import AccordionItem from "./AccordionItem";
-
 type Props = {};
 
 export default function Accordion({}: Props) {
@@ -10,6 +10,9 @@ export default function Accordion({}: Props) {
   const setSortingArray = useContext(SortingArrayContext)?.setSortingArray;
   const arraySize = useContext(SortingArrayContext)?.arraySize;
   const setArraySize = useContext(SortingArrayContext)?.setArraySize;
+  const animationSpeed = useContext(AnimationContext)?.animationSpeed;
+  const setAnimationSpeed = useContext(AnimationContext)?.setAnimationSpeed;
+
   const generateRandomArray = () => {
     // randomly generated N = arrLength length array 0 <= A[N] <= arrLength - 1
     const arrLength = arraySize || 50;
@@ -22,12 +25,13 @@ export default function Accordion({}: Props) {
     const tempArrSize = event.target.value;
     setArraySize?.(tempArrSize);
   };
+  //whenever arraySize is updated, update array
   useEffect(() => {
     setSortingArray?.(generateRandomArray());
   }, [arraySize]);
   const accordionData = [
     {
-      accordionTitle: "Select Algorithm",
+      accordionTitle: "Algorithms",
       accordionContent: (
         <form className="[&>input]:mr-2">
           <input
@@ -110,6 +114,26 @@ export default function Accordion({}: Props) {
           />
           <output>{arraySize}</output>
         </div>
+      ),
+    },
+    {
+      accordionTitle: "Animation Settings",
+      accordionContent: (
+        <form className="flex flex-col items-center">
+          <label htmlFor="">Animation Speed</label>
+          <input
+            type="range"
+            id="animation-speed"
+            name="animation settings"
+            min="1"
+            max="100"
+            value={animationSpeed}
+            onChange={(e) => {
+              setAnimationSpeed?.(parseInt(e.target.value));
+            }}
+          />
+          <output>{animationSpeed}</output>
+        </form>
       ),
     },
   ];

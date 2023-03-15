@@ -12,7 +12,7 @@
 
 @layer components {
   .panel {
-    @apply fixed p-[20px] max-w-[250px] right-[20px] top-[20px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)] cursor-default;
+    @apply absolute p-[20px] max-w-[250px] right-[20px] top-[20px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)] cursor-default;
   }
   .button {
     @apply opacity-90 hover:opacity-80 active:opacity-100 border p-2 rounded-md my-2;

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Panel from "@/components/Panel";
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen">
       <Head>
         <title>Sorting Visualizer</title>
         <meta name="description" content="A simple sorting visualizer app" />
@@ -14,6 +14,6 @@ export default function Home() {
       </h1>
       <Panel />
       <main></main>
-    </>
+    </div>
   );
 }
