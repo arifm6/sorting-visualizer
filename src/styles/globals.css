@@ -11,10 +11,16 @@
 }
 
 @layer components {
-  .panel {
-    @apply absolute p-[20px] max-w-[250px] right-[20px] top-[20px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)] cursor-default;
+  .control-panel {
+    @apply absolute w-[250px] right-[20px] top-[20px]  p-[20px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
+  }
+  .start-panel {
+    @apply absolute right-[20px] top-[500px] p-[20px] w-[250px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
   }
   .button {
-    @apply opacity-90 hover:opacity-80 active:opacity-100 border p-2 rounded-md my-2;
+    @apply opacity-90 hover:opacity-80 active:opacity-100 border p-2 rounded-md;
+  }
+  .start-panel-button {
+    @apply text-xs p-1 bg-gray-400 text-black border-black font-medium;
   }
 }

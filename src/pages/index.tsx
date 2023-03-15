@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Panel from "@/components/Panel";
+import ControlPanel from "@/components/ControlPanel";
+import StartPanel from "@/components/StartPanel";
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -12,7 +13,8 @@ export default function Home() {
       <h1 className="text-center text-3xl p-4 w-full bg-red-400">
         Sorting Visualizer
       </h1>
-      <Panel />
+      <ControlPanel />
+      <StartPanel />
       <main></main>
     </div>
   );

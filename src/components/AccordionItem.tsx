@@ -10,7 +10,7 @@ export default function AccordionItem({
   accordionContent,
 }: Props) {
   //label and content
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const contentElement = useRef<HTMLDivElement>(null);
   return (
     <div>
@@ -29,7 +29,7 @@ export default function AccordionItem({
       </div>
       <div
         ref={contentElement}
-        className={`px-6 h-0 overflow-hidden transition-all ease-in-out bg-[rgba(0,0,0,0.3)] rounded-b-md`}
+        className={`px-6 overflow-hidden transition-all ease-in-out bg-[rgba(0,0,0,0.3)] rounded-b-md`}
         style={
           isActive
             ? { height: contentElement.current?.scrollHeight }
