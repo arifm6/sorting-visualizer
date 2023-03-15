@@ -160,7 +160,9 @@ export default function Header({}: Props) {
           </button>
           <h1 className="font-bold py-1">Control Panel</h1>
         </div>
-        {controlPanelOpen && <Accordion accordionData={accordionData} />}{" "}
+        <div className={`${!controlPanelOpen && "h-0"} overflow-hidden`}>
+          <Accordion accordionData={accordionData} />
+        </div>
       </div>
     </Draggable>
   );
