@@ -1,6 +1,3 @@
-import { AnimationContext } from "@/contexts/AnimationContext";
-import { SortingAlgorithmContext } from "@/contexts/SortingAlgorithmContext";
-import { SortingArrayContext } from "@/contexts/SortingArrayContext";
 import React, { Dispatch, SetStateAction, useContext, useEffect } from "react";
 import AccordionItem from "./AccordionItem";
 type Props = {

@@ -1,6 +1,8 @@
 import Head from "next/head";
 import ControlPanel from "@/components/ControlPanel";
 import StartPanel from "@/components/StartPanel";
+import { useContext, useEffect } from "react";
+import { AppContext } from "@/context";
 export default function Home() {
   return (
     <div className="min-h-screen">

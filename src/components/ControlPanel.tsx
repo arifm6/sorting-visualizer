@@ -1,39 +1,26 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Accordion from "./Accordion";
 import { useContext } from "react";
-import { SortingArrayContext } from "@/contexts/SortingArrayContext";
 import Draggable from "react-draggable";
-import { SortingAlgorithmContext } from "@/contexts/SortingAlgorithmContext";
-import { AnimationContext } from "@/contexts/AnimationContext";
+import { AppContext } from "@/context";
+import {
+  randomizeArray,
+  updateAlgorithm,
+  updateArraySize,
+  updateSpeed,
+} from "@/reducers";
 type Props = {};
 
 export default function Header({}: Props) {
   const [controlPanelOpen, setControlPanelOpen] = useState(true);
-  const setSortingAlgorithm = useContext(SortingAlgorithmContext)?.setAlgorithm;
-  const setSortingArray = useContext(SortingArrayContext)?.setSortingArray;
-  const arraySize = useContext(SortingArrayContext)?.arraySize;
-  const setArraySize = useContext(SortingArrayContext)?.setArraySize;
-  const animationSpeed = useContext(AnimationContext)?.animationSpeed;
-  const setAnimationSpeed = useContext(AnimationContext)?.setAnimationSpeed;
 
-  const generateRandomArray = () => {
-    // randomly generated N = arrLength length array 0 <= A[N] <= arrLength - 1
-    const arrLength = arraySize || 50;
-    const ret = Array.from({ length: arrLength }, () =>
-      Math.floor(Math.random() * arrLength)
-    );
-    return ret;
-  };
-  const updateArraySize = (event: any) => {
-    const tempArrSize = event.target.value;
-    setArraySize?.(tempArrSize);
-  };
+  const { state, dispatch } = useContext(AppContext);
+
   //whenever arraySize is updated, update array
   useEffect(() => {
-    setSortingArray?.(generateRandomArray());
-  }, [arraySize]);
+    dispatch(randomizeArray());
+  }, [state.sorting.arraySize]);
   //should have heading which is a button for the dropdown AND a dropdown with content
-
   const accordionData = [
     {
       accordionTitle: "Algorithms",
@@ -44,7 +31,7 @@ export default function Header({}: Props) {
             type="radio"
             value="insertion sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("insertion sort")}
+            onChange={() => dispatch(updateAlgorithm("insertion sort"))}
           />
           <label htmlFor="insertion-sort">Insertion Sort</label>
           <br />
@@ -53,7 +40,7 @@ export default function Header({}: Props) {
             type="radio"
             value="selection sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("selection sort")}
+            onChange={() => dispatch(updateAlgorithm("selection sort"))}
           />
           <label htmlFor="selection-sort">Selection Sort</label>
           <br />
@@ -62,7 +49,7 @@ export default function Header({}: Props) {
             type="radio"
             value="quick sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("quick sort")}
+            onChange={() => dispatch(updateAlgorithm("quick sort"))}
           />
           <label htmlFor="quick-sort">Quick Sort</label>
           <br />
@@ -71,7 +58,7 @@ export default function Header({}: Props) {
             type="radio"
             value="merge sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("merge sort")}
+            onChange={() => dispatch(updateAlgorithm("merge sort"))}
           />
           <label htmlFor="merge-sort">Merge Sort</label>
           <br />
@@ -80,7 +67,7 @@ export default function Header({}: Props) {
             type="radio"
             value="bubble sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("bubble sort")}
+            onChange={() => dispatch(updateAlgorithm("bubble sort"))}
           />
           <label htmlFor="bubble-sort">Bubble Sort</label>
           <br />
@@ -89,7 +76,7 @@ export default function Header({}: Props) {
             type="radio"
             value="shell sort"
             name="sorting algorithm"
-            onChange={() => setSortingAlgorithm?.("shell sort")}
+            onChange={() => dispatch(updateAlgorithm("shell sort"))}
           />
           <label htmlFor="shell-sort">Shell Sort</label>
         </form>
@@ -101,7 +88,9 @@ export default function Header({}: Props) {
         <div className="flex flex-col items-center">
           <button
             className="button disable-drag my-2"
-            onClick={() => setSortingArray?.(generateRandomArray())}
+            onClick={() => {
+              dispatch(randomizeArray());
+            }}
           >
             Randomize Array
           </button>
@@ -115,10 +104,12 @@ export default function Header({}: Props) {
             name="array settings"
             min="1"
             max="100"
-            value={arraySize}
-            onChange={(e) => updateArraySize(e)}
+            value={state.sorting.arraySize}
+            onChange={(e) => {
+              dispatch(updateArraySize(parseInt(e.target.value)));
+            }}
           />
-          <output>{arraySize}</output>
+          <output>{state.sorting.arraySize}</output>
         </div>
       ),
     },
@@ -134,12 +125,12 @@ export default function Header({}: Props) {
             name="animation settings"
             min="1"
             max="100"
-            value={animationSpeed}
+            value={state.animation.speed}
             onChange={(e) => {
-              setAnimationSpeed?.(parseInt(e.target.value));
+              dispatch(updateSpeed(parseInt(e.target.value)));
             }}
           />
-          <output>{animationSpeed}</output>
+          <output>{state.animation.speed}</output>
         </form>
       ),
     },
