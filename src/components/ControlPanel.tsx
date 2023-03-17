@@ -2,13 +2,13 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import Accordion from "./Accordion";
 import { useContext } from "react";
 import Draggable from "react-draggable";
-import { AppContext } from "@/context";
+import { AppContext } from "@/globalState/context";
 import {
   randomizeArray,
   updateAlgorithm,
   updateArraySize,
   updateSpeed,
-} from "@/reducers";
+} from "@/globalState/reducers";
 type Props = {};
 
 export default function Header({}: Props) {
@@ -25,8 +25,9 @@ export default function Header({}: Props) {
     {
       accordionTitle: "Algorithms",
       accordionContent: (
-        <form className="[&>input]:mr-2">
+        <form className="[&>input]:mr-2 disable-drag">
           <input
+            className=""
             id="insertion-sort"
             type="radio"
             value="insertion sort"
@@ -85,20 +86,17 @@ export default function Header({}: Props) {
     {
       accordionTitle: "Array Settings",
       accordionContent: (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center disable-drag">
           <button
-            className="button disable-drag my-2"
+            className="button  my-2"
             onClick={() => {
               dispatch(randomizeArray());
             }}
           >
             Randomize Array
           </button>
-          <label htmlFor="array-size" className="">
-            Array Size
-          </label>
+          <label htmlFor="array-size">Array Size</label>
           <input
-            className="disable-drag"
             type="range"
             id="array-size"
             name="array settings"
@@ -116,10 +114,9 @@ export default function Header({}: Props) {
     {
       accordionTitle: "Animation Settings",
       accordionContent: (
-        <form className="flex flex-col items-center">
+        <form className="flex flex-col items-center disable-drag">
           <label htmlFor="">Animation Speed</label>
           <input
-            className="disable-drag"
             type="range"
             id="animation-speed"
             name="animation settings"
@@ -149,7 +146,7 @@ export default function Header({}: Props) {
           >
             {controlPanelOpen ? "-" : "+"}
           </button>
-          <h1 className="font-bold py-1">Control Panel</h1>
+          <h1 className="font-bold py-1 cursor-default">Control Panel</h1>
         </div>
         <div className={`${!controlPanelOpen && "h-0"} overflow-hidden`}>
           <Accordion accordionData={accordionData} />

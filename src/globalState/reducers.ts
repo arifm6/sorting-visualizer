@@ -19,6 +19,9 @@ export const updateArraySize = (arraySize = 50) => {
 export const randomizeArray = () => {
   return { type: "RANDOMIZE_ARRAY" };
 };
+export const sortArray = () => {
+  return { type: "SORT_ARRAY" };
+};
 export const sortingReducer = (state: SortingType, action: any) => {
   switch (action.type) {
     case "UPDATE_ALGORITHM":
@@ -34,6 +37,10 @@ export const sortingReducer = (state: SortingType, action: any) => {
       };
     case "UPDATE_ARRAY_SIZE":
       return { ...state, arraySize: action.payload };
+    case "SORT_ARRAY":
+      switch (state.algorithm) {
+      }
+      return state;
     default:
       return state;
   }

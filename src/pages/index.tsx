@@ -2,10 +2,13 @@ import Head from "next/head";
 import ControlPanel from "@/components/ControlPanel";
 import StartPanel from "@/components/StartPanel";
 import { useContext, useEffect } from "react";
-import { AppContext } from "@/context";
+import { AppContext } from "@/globalState/context";
 import ArrayItem from "@/components/ArrayItem";
+import { Animation, Frame } from "@/scripts/algorithms";
+const { v4: uuidv4 } = require("uuid");
+
 export default function Home() {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   return (
     <div className="min-h-screen">
       <Head>
@@ -18,12 +21,13 @@ export default function Home() {
       <ControlPanel />
       <StartPanel />
       <div className="h-[calc(100vh_-_68px)]  w-full  px-1 flex justify-center items-end space-x-[1px] md:space-x-[2px] lg:space-x-1">
-        {state.sorting.array.map((value, i) => {
+        {state.sorting.array.map((value) => {
+          const uuid = uuidv4();
           return (
             <ArrayItem
-              i={i}
+              id={uuid}
               value={value}
-              key={i}
+              key={uuid}
               arraySize={state.sorting.arraySize}
             />
           );

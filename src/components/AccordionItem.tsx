@@ -25,7 +25,7 @@ export default function AccordionItem({
         }
       >
         <button>{isActive ? "-" : "+"}</button>
-        <h1>{accordionTitle}</h1>
+        <h1 className="disable-drag">{accordionTitle}</h1>
       </div>
       <div
         ref={contentElement}
