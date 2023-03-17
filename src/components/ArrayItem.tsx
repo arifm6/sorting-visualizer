@@ -15,7 +15,7 @@ export default function ArrayItem({ value, arraySize, i }: Props) {
         className="w-full bg-blue-400"
         style={{ height: value.toString() + "%" }}
       ></div>
-      <p className="array-value-font">{value}</p>
+      <p className="array-value-font hidden xl:block ">{value}</p>
     </div>
   );
 }
