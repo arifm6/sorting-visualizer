@@ -17,7 +17,7 @@ export const initialState = {
   animation: { speed: 50 },
   sorting: {
     algorithm: "",
-    array: Array.from({ length: 50 }, () => Math.floor(Math.random() * 100)),
+    array: new Array(50),
     arraySize: 50,
   },
 };

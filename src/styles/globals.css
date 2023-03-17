@@ -9,6 +9,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow-x: 1;
+}
 
 @layer components {
   .control-panel {
@@ -22,5 +25,8 @@
   }
   .start-panel-button {
     @apply text-xs p-1 bg-gray-400 text-black border-black font-medium;
+  }
+  .array-value-font {
+    font-size: min(1vw, 1vh);
   }
 }
