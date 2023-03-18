@@ -1,28 +1,23 @@
-//A frame is an instance of time
-export class Frame {
-  //stores the array in current order
-  array: number[];
-  //stores the currently highlighted elements... should have 2 elements only
-  highlights: number[];
-  constructor() {
-    this.array = [];
-    this.highlights = [];
-  }
+import { Frame } from "@/globalState/context";
+function getFrame(elements: number[], highlighted: number[]) {
+  return { elements, highlighted };
 }
-//an animation contains all frames in order
-export class Animation {
-  frames: Frame[];
-  constructor() {
-    this.frames = [];
+export function insertionSort(arr: number[]) {
+  const frames = [];
+  for (let i = 1; i < arr.length; i++) {
+    const key = arr[i];
+    let j = i - 1;
+    frames.push(getFrame([], [j, j + 1]));
+    while (j >= 0 && arr[j] > key) {
+      //remove comment below to add extra frame before swapping
+      frames.push(getFrame([], [j, j + 1]));
+
+      arr[j + 1] = arr[j];
+      frames.push(getFrame([j, j + 1], [j, j + 1]));
+
+      j = j - 1;
+    }
+    arr[j + 1] = key;
   }
-  addFrame(frameToAdd: Frame) {
-    this.frames.push(frameToAdd);
-  }
-}
-//algorithm simply runs the algo and stores into an animation
-export class Algorithms {
-  solution: Animation;
-  constructor() {
-    this.solution = new Animation();
-  }
+  return frames;
 }

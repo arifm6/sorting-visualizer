@@ -4,9 +4,12 @@ import { useContext } from "react";
 import Draggable from "react-draggable";
 import { AppContext } from "@/globalState/context";
 import {
+  generateFrames,
   randomizeArray,
+  setCurrentFrameIndex,
   updateAlgorithm,
   updateArraySize,
+  updateHighlighted,
   updateSpeed,
 } from "@/globalState/reducers";
 type Props = {};
@@ -19,7 +22,10 @@ export default function Header({}: Props) {
   //whenever arraySize is updated, update array
   useEffect(() => {
     dispatch(randomizeArray());
-  }, [state.sorting.arraySize]);
+    dispatch(generateFrames());
+    dispatch(setCurrentFrameIndex(0));
+    dispatch(updateHighlighted([-1, -1]));
+  }, [state.sorting.array.length]);
   //should have heading which is a button for the dropdown AND a dropdown with content
   const accordionData = [
     {
@@ -91,6 +97,9 @@ export default function Header({}: Props) {
             className="button  my-2"
             onClick={() => {
               dispatch(randomizeArray());
+              dispatch(generateFrames());
+              dispatch(setCurrentFrameIndex(0));
+              dispatch(updateHighlighted([-1, -1]));
             }}
           >
             Randomize Array
@@ -102,12 +111,12 @@ export default function Header({}: Props) {
             name="array settings"
             min="1"
             max="100"
-            value={state.sorting.arraySize}
+            value={state.sorting.array.length}
             onChange={(e) => {
               dispatch(updateArraySize(parseInt(e.target.value)));
             }}
           />
-          <output>{state.sorting.arraySize}</output>
+          <output>{state.sorting.array.length}</output>
         </div>
       ),
     },

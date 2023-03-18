@@ -1,24 +1,34 @@
 import { createContext, Dispatch, ReactNode, useReducer } from "react";
 import { mainReducer } from "./reducers";
 
+export type Frame = {
+  //elements to swap
+  elements: number[];
+  //highlighted elements
+  highlighted: number[];
+};
+
 export type AnimationType = {
   speed: number;
+  highlighted: number[];
 };
 export type SortingType = {
   algorithm: string;
   array: number[];
-  arraySize: number;
+  frames: Frame[];
+  currentFrameIndex: number;
 };
 export type InitialStateType = {
   animation: AnimationType;
   sorting: SortingType;
 };
 export const initialState = {
-  animation: { speed: 50 },
+  animation: { speed: 50, highlighted: [-1, -1] },
   sorting: {
     algorithm: "",
     array: new Array(50),
-    arraySize: 50,
+    frames: [{ elements: [], highlighted: [] }],
+    currentFrameIndex: 0,
   },
 };
 

@@ -29,4 +29,7 @@ body {
   .array-value-font {
     font-size: min(1vw, 1vh);
   }
+  .node-test {
+    @apply bg-red-400;
+  }
 }
