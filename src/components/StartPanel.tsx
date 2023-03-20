@@ -29,7 +29,6 @@ export default function StartPanel({}: Props) {
       return;
     }
     animateFrame(state, dispatch);
-    console.log(state.animation.animationFrameIndex);
     if (
       state.animation.animationFrameIndex ===
       state.sorting.frames.length - 1
@@ -39,8 +38,8 @@ export default function StartPanel({}: Props) {
     }
   }, [state.animation.animationFrameIndex]);
   useEffect(() => {
+    clearInterval(state.animation.frameIndexInterval);
     dispatch(setAnimationFrameIndex(state.sorting.currentFrameIndex));
-
     if (state.animation.active) {
       dispatch(
         setFrameIndexInterval(
@@ -53,9 +52,7 @@ export default function StartPanel({}: Props) {
       clearInterval(state.animation.frameIndexInterval);
     }
   }, [state.animation.active]);
-  const buttonStyle = `${
-    state.animation.active ? "disabled-button" : "button"
-  } start-panel-button disable-drag `;
+  const buttonStyle = `start-panel-button disable-drag `;
 
   return (
     <Draggable nodeRef={nodeRef} cancel=".disable-drag">
@@ -64,7 +61,11 @@ export default function StartPanel({}: Props) {
         ref={nodeRef}
       >
         <button
-          className={buttonStyle}
+          className={`${
+            state.animation.active || state.sorting.currentFrameIndex === 0
+              ? "disabled-button"
+              : "button"
+          } ${buttonStyle}`}
           onClick={() => {
             skipToBeginning(state, dispatch);
           }}
@@ -72,7 +73,11 @@ export default function StartPanel({}: Props) {
           Skip Back
         </button>
         <button
-          className={buttonStyle}
+          className={`${
+            state.animation.active || state.sorting.currentFrameIndex === 0
+              ? "disabled-button"
+              : "button"
+          } ${buttonStyle}`}
           onClick={() => {
             animateFrame(state, dispatch, -1);
           }}
@@ -80,7 +85,12 @@ export default function StartPanel({}: Props) {
           Step Back
         </button>
         <button
-          className={buttonStyle}
+          className={`${
+            state.animation.active ||
+            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
+              ? "disabled-button"
+              : "button"
+          } ${buttonStyle}`}
           onClick={() => {
             if (
               state.sorting.algorithm &&
@@ -106,7 +116,12 @@ export default function StartPanel({}: Props) {
           Pause Search
         </button>
         <button
-          className={buttonStyle}
+          className={`${
+            state.animation.active ||
+            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
+              ? "disabled-button"
+              : "button"
+          } ${buttonStyle}`}
           onClick={() => {
             animateFrame(state, dispatch, 1);
           }}
@@ -114,7 +129,12 @@ export default function StartPanel({}: Props) {
           Step Forward
         </button>
         <button
-          className={buttonStyle}
+          className={`${
+            state.animation.active ||
+            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
+              ? "disabled-button"
+              : "button"
+          } ${buttonStyle}`}
           onClick={() => {
             skipToEnd(state, dispatch);
           }}

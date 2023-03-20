@@ -6,6 +6,7 @@ import { AppContext } from "@/globalState/context";
 import {
   generateFrames,
   randomizeArray,
+  setActive,
   setCurrentFrameIndex,
   setFrameIndexInterval,
   setInactive,
@@ -14,14 +15,13 @@ import {
   updateHighlighted,
   updateSpeed,
 } from "@/globalState/reducers";
-import { startAnimation } from "@/scripts/animate";
+import { skipToBeginning, startAnimation } from "@/scripts/animate";
 type Props = {};
 
 export default function Header({}: Props) {
   const [controlPanelOpen, setControlPanelOpen] = useState(true);
 
   const { state, dispatch } = useContext(AppContext);
-
   //whenever arraySize is updated, update array
   const resetBoard = () => {
     clearInterval(state.animation.frameIndexInterval);
@@ -39,10 +39,20 @@ export default function Header({}: Props) {
   }, [state.sorting.algorithm]);
   function handleAlgorithmChange(algorithm: string) {
     dispatch(setInactive());
+    skipToBeginning(state, dispatch);
+
     dispatch(setCurrentFrameIndex(0));
     dispatch(updateHighlighted([-1, -1]));
     dispatch(updateAlgorithm(algorithm));
   }
+  const [activeSpeedLock, setActiveSpeedLock] = useState(false);
+  useEffect(() => {
+    if (activeSpeedLock) {
+      dispatch(setActive());
+      setActiveSpeedLock(false);
+    }
+  }, [activeSpeedLock]);
+
   //should have heading which is a button for the dropdown AND a dropdown with content
   const accordionData = [
     {
@@ -148,6 +158,13 @@ export default function Header({}: Props) {
             value={state.animation.speed}
             onChange={(e) => {
               dispatch(updateSpeed(parseInt(e.target.value)));
+              if (state.animation.active) {
+                clearInterval(state.animation.frameIndexInterval);
+
+                dispatch(setInactive());
+
+                setActiveSpeedLock(true);
+              }
             }}
           />
           <output>{state.animation.speed}</output>
