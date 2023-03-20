@@ -7,11 +7,14 @@ import {
   generateFrames,
   randomizeArray,
   setCurrentFrameIndex,
+  setFrameIndexInterval,
+  setInactive,
   updateAlgorithm,
   updateArraySize,
   updateHighlighted,
   updateSpeed,
 } from "@/globalState/reducers";
+import { startAnimation } from "@/scripts/animate";
 type Props = {};
 
 export default function Header({}: Props) {
@@ -20,12 +23,26 @@ export default function Header({}: Props) {
   const { state, dispatch } = useContext(AppContext);
 
   //whenever arraySize is updated, update array
-  useEffect(() => {
+  const resetBoard = () => {
+    clearInterval(state.animation.frameIndexInterval);
+    dispatch(setInactive());
     dispatch(randomizeArray());
     dispatch(generateFrames());
     dispatch(setCurrentFrameIndex(0));
     dispatch(updateHighlighted([-1, -1]));
+  };
+  useEffect(() => {
+    resetBoard();
   }, [state.sorting.array.length]);
+  useEffect(() => {
+    dispatch(generateFrames());
+  }, [state.sorting.algorithm]);
+  function handleAlgorithmChange(algorithm: string) {
+    dispatch(setInactive());
+    dispatch(setCurrentFrameIndex(0));
+    dispatch(updateHighlighted([-1, -1]));
+    dispatch(updateAlgorithm(algorithm));
+  }
   //should have heading which is a button for the dropdown AND a dropdown with content
   const accordionData = [
     {
@@ -38,7 +55,7 @@ export default function Header({}: Props) {
             type="radio"
             value="insertion sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("insertion sort"))}
+            onChange={() => handleAlgorithmChange("insertion sort")}
           />
           <label htmlFor="insertion-sort">Insertion Sort</label>
           <br />
@@ -47,7 +64,7 @@ export default function Header({}: Props) {
             type="radio"
             value="selection sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("selection sort"))}
+            onChange={() => handleAlgorithmChange("selection sort")}
           />
           <label htmlFor="selection-sort">Selection Sort</label>
           <br />
@@ -56,7 +73,7 @@ export default function Header({}: Props) {
             type="radio"
             value="quick sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("quick sort"))}
+            onChange={() => handleAlgorithmChange("quick sort")}
           />
           <label htmlFor="quick-sort">Quick Sort</label>
           <br />
@@ -65,7 +82,7 @@ export default function Header({}: Props) {
             type="radio"
             value="merge sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("merge sort"))}
+            onChange={() => handleAlgorithmChange("merge sort")}
           />
           <label htmlFor="merge-sort">Merge Sort</label>
           <br />
@@ -74,7 +91,7 @@ export default function Header({}: Props) {
             type="radio"
             value="bubble sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("bubble sort"))}
+            onChange={() => handleAlgorithmChange("bubble sort")}
           />
           <label htmlFor="bubble-sort">Bubble Sort</label>
           <br />
@@ -83,7 +100,7 @@ export default function Header({}: Props) {
             type="radio"
             value="shell sort"
             name="sorting algorithm"
-            onChange={() => dispatch(updateAlgorithm("shell sort"))}
+            onChange={() => handleAlgorithmChange("shell sort")}
           />
           <label htmlFor="shell-sort">Shell Sort</label>
         </form>
@@ -96,10 +113,7 @@ export default function Header({}: Props) {
           <button
             className="button  my-2"
             onClick={() => {
-              dispatch(randomizeArray());
-              dispatch(generateFrames());
-              dispatch(setCurrentFrameIndex(0));
-              dispatch(updateHighlighted([-1, -1]));
+              resetBoard();
             }}
           >
             Randomize Array

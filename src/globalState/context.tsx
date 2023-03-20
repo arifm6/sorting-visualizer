@@ -10,25 +10,42 @@ export type Frame = {
 
 export type AnimationType = {
   speed: number;
+  frameIndexInterval: any;
   highlighted: number[];
+  active: boolean;
+  animationFrameIndex: number;
 };
 export type SortingType = {
   algorithm: string;
+  originalArray: number[];
   array: number[];
+  sortedArray: number[];
   frames: Frame[];
   currentFrameIndex: number;
+  direction: number;
 };
 export type InitialStateType = {
   animation: AnimationType;
   sorting: SortingType;
 };
 export const initialState = {
-  animation: { speed: 50, highlighted: [-1, -1] },
+  animation: {
+    speed: 50,
+    frameIndexInterval: null,
+    highlighted: [-1, -1],
+    active: false,
+    animationFrameIndex: 0,
+  },
   sorting: {
     algorithm: "",
+    originalArray: new Array(50),
+
     array: new Array(50),
+    sortedArray: new Array(50),
+
     frames: [{ elements: [], highlighted: [] }],
     currentFrameIndex: 0,
+    direction: 1,
   },
 };
 

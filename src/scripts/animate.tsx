@@ -1,7 +1,11 @@
 import { InitialStateType } from "@/globalState/context";
 import {
+  decrementCurrentFrameIndex,
+  incrementCurrentFrameIndex,
   setCurrentFrameIndex,
+  setFrameIndexInterval,
   swapArrayIndices,
+  updateArray,
   updateHighlighted,
 } from "@/globalState/reducers";
 
@@ -9,65 +13,45 @@ import {
 export function animateFrame(
   state: InitialStateType,
   dispatch: React.Dispatch<any>,
-  direction = 1
+  direction: number = 1
 ) {
-  const { array, frames, currentFrameIndex } = { ...state.sorting };
-  let currentFrame = frames[currentFrameIndex];
-  if (direction === -1) {
-    if (currentFrameIndex <= 0) {
-      return;
-    }
-    currentFrame = frames[currentFrameIndex + direction];
-
-    dispatch(setCurrentFrameIndex(currentFrameIndex + direction));
+  var { frames, currentFrameIndex } = { ...state.sorting };
+  if (currentFrameIndex !== 0 && direction === -1) {
+    currentFrameIndex -= 1;
   }
-  //if
-  if (!currentFrame) {
-    return;
+  const frameToAnimate = frames[currentFrameIndex];
+  if (direction === 1) {
+    dispatch(incrementCurrentFrameIndex());
+  } else if (direction === -1) {
+    dispatch(decrementCurrentFrameIndex());
   }
-
-  dispatch(updateHighlighted(currentFrame.highlighted));
-  if (currentFrame.elements.length === 2) {
-    dispatch(swapArrayIndices(currentFrame.elements));
+  dispatch(updateHighlighted(frameToAnimate.highlighted));
+  if (frameToAnimate.elements.length === 2) {
+    dispatch(swapArrayIndices(frameToAnimate.elements));
   }
-  dispatch(setCurrentFrameIndex(currentFrameIndex + direction));
 }
-
 export function skipToEnd(
   state: InitialStateType,
   dispatch: React.Dispatch<any>
 ) {
-  let { array, frames, currentFrameIndex } = { ...state.sorting };
-  let currentFrame = frames[currentFrameIndex];
-  while (currentFrame) {
-    if (currentFrame.elements.length === 2) {
-      dispatch(swapArrayIndices(currentFrame.elements));
-    }
-    currentFrameIndex += 1;
-    currentFrame = frames[currentFrameIndex];
-  }
-  currentFrameIndex = frames.length - 1;
-  currentFrame = frames[currentFrameIndex];
-  dispatch(updateHighlighted(currentFrame.highlighted));
-  dispatch(setCurrentFrameIndex(currentFrameIndex));
+  dispatch(updateArray(state.sorting.sortedArray));
+  dispatch(setCurrentFrameIndex(state.sorting.frames.length - 1));
+  dispatch(
+    updateHighlighted(
+      state.sorting.frames[state.sorting.frames.length - 1].highlighted
+    )
+  );
 }
 
 export function skipToBeginning(
   state: InitialStateType,
   dispatch: React.Dispatch<any>
 ) {
-  let { array, frames, currentFrameIndex } = { ...state.sorting };
-  currentFrameIndex -= 1;
-  let currentFrame = frames[currentFrameIndex];
-  while (currentFrame) {
-    if (currentFrame.elements.length === 2) {
-      dispatch(swapArrayIndices(currentFrame.elements));
-    }
-    currentFrameIndex -= 1;
-    currentFrame = frames[currentFrameIndex];
-  }
-  currentFrameIndex = 0;
-  currentFrame = frames[currentFrameIndex];
-  dispatch(updateHighlighted(currentFrame.highlighted));
-  dispatch(setCurrentFrameIndex(currentFrameIndex));
+  dispatch(updateArray(state.sorting.originalArray));
+  dispatch(setCurrentFrameIndex(0));
+  dispatch(updateHighlighted(state.sorting.frames[0].highlighted));
 }
+export function startAnimation(
+  state: InitialStateType,
+  dispatch: React.Dispatch<any>
+) {}

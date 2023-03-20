@@ -23,13 +23,13 @@ body {
   .button {
     @apply opacity-90 hover:opacity-80 active:opacity-100 border p-2 rounded-md;
   }
+  .disabled-button {
+    @apply opacity-20  border p-2 rounded-md pointer-events-none;
+  }
   .start-panel-button {
     @apply text-xs p-1 bg-gray-400 text-black border-black font-medium;
   }
   .array-value-font {
     font-size: min(1vw, 1vh);
-  }
-  .node-test {
-    @apply bg-red-400;
   }
 }

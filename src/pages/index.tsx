@@ -16,9 +16,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 id="test-id" className="text-center text-3xl p-4 w-full ">
-        Sorting Visualizer
-      </h1>
+      <h1 className="text-center text-3xl p-4 w-full ">Sorting Visualizer</h1>
       <ControlPanel />
       <StartPanel />
       <div className="h-[calc(100vh_-_68px)]  w-full  px-1 flex justify-center items-end space-x-[1px] md:space-x-[2px] lg:space-x-1">
