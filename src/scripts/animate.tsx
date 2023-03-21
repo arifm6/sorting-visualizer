@@ -26,7 +26,10 @@ export function animateFrame(
     dispatch(decrementCurrentFrameIndex());
   }
   dispatch(updateHighlighted(frameToAnimate.highlighted));
-  if (frameToAnimate.elements.length === 2) {
+  if (
+    frameToAnimate.elements.length === 2 ||
+    frameToAnimate.elements.length === 3
+  ) {
     dispatch(swapArrayIndices(frameToAnimate.elements));
   }
 }

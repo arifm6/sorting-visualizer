@@ -109,6 +109,16 @@ export const sortingReducer = (state: SortingType, action: any) => {
     }
     case "SWAP_ARRAY_INDICES": {
       const tempArray = [...state.array];
+
+      //if 3, then update and not swap first is index, second is value, third empty
+
+      if (action.payload.length === 3) {
+        if (action.payload[1] === undefined) {
+          return { ...state };
+        }
+        tempArray[action.payload[0]] = action.payload[1];
+        return { ...state, array: [...tempArray] };
+      }
       const temp = tempArray[action.payload[0]];
       tempArray[action.payload[0]] = tempArray[action.payload[1]];
       tempArray[action.payload[1]] = temp;

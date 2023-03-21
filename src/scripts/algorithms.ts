@@ -12,10 +12,20 @@ export function sort(arr: number[], algorithm: string) {
     case "selection sort":
       frames = [...frames, ...selectionSort(arr)];
       break;
-    case "quick sort":
+    case "quick sort": {
       const tempFrames: Frame[] = [];
 
       frames = [...frames, ...quickSort(arr, 0, arr.length - 1, frames)];
+      break;
+    }
+    case "merge sort":
+      const { tempFrames, tempArray } = mergeSort(arr, frames);
+
+      frames = [...tempFrames];
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] = tempArray[i];
+      }
+
       break;
   }
   frames.push(getFrame([], [-1, -1]));
@@ -134,4 +144,68 @@ function quickSort(
     quickSort(arr, pi + 1, high, frames);
   }
   return frames;
+}
+//iterative mergesort from https://stackoverflow.com/questions/32041092/implementing-merge-sort-iteratively
+
+function mergeSort(arr: number[], frames: Frame[]) {
+  var sorted = arr.slice(),
+    n = sorted.length,
+    buffer = new Array(n);
+
+  for (var size = 1; size < n; size *= 2) {
+    for (var leftStart = 0; leftStart < n; leftStart += 2 * size) {
+      var left = leftStart,
+        right = Math.min(left + size, n),
+        leftLimit = right,
+        rightLimit = Math.min(right + size, n),
+        i = left;
+      frames.push(getFrame([], [left, right, leftLimit, rightLimit]));
+      while (left < leftLimit && right < rightLimit) {
+        if (sorted[left] <= sorted[right]) {
+          frames.push(
+            getFrame(
+              [i, sorted[left], -1],
+              [i, left, right, leftLimit, rightLimit]
+            )
+          );
+
+          buffer[i++] = sorted[left++];
+        } else {
+          frames.push(
+            getFrame(
+              [i, sorted[right], -1],
+              [i, left, right, leftLimit, rightLimit]
+            )
+          );
+
+          buffer[i++] = sorted[right++];
+        }
+      }
+      while (left < leftLimit) {
+        frames.push(
+          getFrame(
+            [i, sorted[left], -1],
+            [i, left, right, leftLimit, rightLimit]
+          )
+        );
+
+        buffer[i++] = sorted[left++];
+      }
+      while (right < rightLimit) {
+        frames.push(
+          getFrame(
+            [i, sorted[right], -1],
+            [i, left, right, leftLimit, rightLimit]
+          )
+        );
+
+        buffer[i++] = sorted[right++];
+      }
+    }
+    var temp = sorted,
+      sorted: number[] = buffer,
+      buffer: any[] = temp;
+  }
+
+  return { tempArray: sorted, tempFrames: frames };
 }
