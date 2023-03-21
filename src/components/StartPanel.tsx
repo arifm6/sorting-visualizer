@@ -56,91 +56,94 @@ export default function StartPanel({}: Props) {
 
   return (
     <Draggable nodeRef={nodeRef} cancel=".disable-drag">
-      <div
-        className="start-panel grid grid-rows-2 grid-cols-3 gap-2"
-        ref={nodeRef}
-      >
-        <button
-          className={`${
-            state.animation.active || state.sorting.currentFrameIndex === 0
-              ? "disabled-button"
-              : "button"
-          } ${buttonStyle}`}
-          onClick={() => {
-            skipToBeginning(state, dispatch);
-          }}
-        >
-          Skip Back
-        </button>
-        <button
-          className={`${
-            state.animation.active || state.sorting.currentFrameIndex === 0
-              ? "disabled-button"
-              : "button"
-          } ${buttonStyle}`}
-          onClick={() => {
-            animateFrame(state, dispatch, -1);
-          }}
-        >
-          Step Back
-        </button>
-        <button
-          className={`${
-            state.animation.active ||
-            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
-              ? "disabled-button"
-              : "button"
-          } ${buttonStyle}`}
-          onClick={() => {
-            if (
-              state.sorting.algorithm &&
-              !(
-                state.sorting.currentFrameIndex ===
+      <div className="flex start-panel flex-col" ref={nodeRef}>
+        <h1 className="font-bold pb-1 cursor-default  text-center">
+          <span className="text-blue-400">Animation Panel</span>
+        </h1>
+        <div className=" grid grid-rows-2 grid-cols-3 gap-2">
+          <button
+            className={`${
+              state.animation.active || state.sorting.currentFrameIndex <= 1
+                ? "disabled-button"
+                : "button"
+            } ${buttonStyle}`}
+            onClick={() => {
+              skipToBeginning(state, dispatch);
+            }}
+          >
+            Skip Back
+          </button>
+          <button
+            className={`${
+              state.animation.active || state.sorting.currentFrameIndex <= 1
+                ? "disabled-button"
+                : "button"
+            } ${buttonStyle}`}
+            onClick={() => {
+              animateFrame(state, dispatch, -1);
+            }}
+          >
+            Step Back
+          </button>
+          <button
+            className={`${
+              state.animation.active ||
+              state.sorting.currentFrameIndex ===
                 state.sorting.frames.length - 1
-              )
-            ) {
-              dispatch(setActive());
-            }
-          }}
-        >
-          Start Search
-        </button>
-        <button
-          className={`${
-            !state.animation.active ? "disabled-button" : "button"
-          } start-panel-button disable-drag`}
-          onClick={() => {
-            dispatch(setInactive());
-          }}
-        >
-          Pause Search
-        </button>
-        <button
-          className={`${
-            state.animation.active ||
-            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
-              ? "disabled-button"
-              : "button"
-          } ${buttonStyle}`}
-          onClick={() => {
-            animateFrame(state, dispatch, 1);
-          }}
-        >
-          Step Forward
-        </button>
-        <button
-          className={`${
-            state.animation.active ||
-            state.sorting.currentFrameIndex === state.sorting.frames.length - 1
-              ? "disabled-button"
-              : "button"
-          } ${buttonStyle}`}
-          onClick={() => {
-            skipToEnd(state, dispatch);
-          }}
-        >
-          Skip Forward
-        </button>
+                ? "disabled-button"
+                : "button"
+            } ${buttonStyle}`}
+            onClick={() => {
+              if (
+                state.sorting.algorithm &&
+                !(
+                  state.sorting.currentFrameIndex ===
+                  state.sorting.frames.length - 1
+                )
+              ) {
+                dispatch(setActive());
+              }
+            }}
+          >
+            Start Search
+          </button>
+          <button
+            className={`${
+              !state.animation.active ? "disabled-button" : "button"
+            } start-panel-button disable-drag`}
+            onClick={() => {
+              dispatch(setInactive());
+            }}
+          >
+            Pause Search
+          </button>
+          <button
+            className={`${
+              state.animation.active ||
+              state.sorting.currentFrameIndex >= state.sorting.frames.length - 2
+                ? "disabled-button"
+                : "button"
+            } ${buttonStyle}`}
+            onClick={() => {
+              animateFrame(state, dispatch, 1);
+            }}
+          >
+            Step Forward
+          </button>
+          <button
+            className={`${
+              state.animation.active ||
+              state.sorting.currentFrameIndex >= state.sorting.frames.length - 2
+                ? "disabled-button"
+                : "button"
+            } ${buttonStyle}`}
+            onClick={() => {
+              skipToEnd(state, dispatch);
+            }}
+          >
+            Skip Forward
+          </button>
+        </div>
       </div>
     </Draggable>
   );

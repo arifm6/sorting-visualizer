@@ -187,7 +187,9 @@ export default function Header({}: Props) {
           >
             {controlPanelOpen ? "-" : "+"}
           </button>
-          <h1 className="font-bold py-1 cursor-default">Control Panel</h1>
+          <h1 className="font-bold py-1 cursor-default">
+            <span className="text-red-400">Control Panel</span>
+          </h1>
         </div>
         <div className={`${!controlPanelOpen && "h-0"} overflow-hidden`}>
           <Accordion accordionData={accordionData} />

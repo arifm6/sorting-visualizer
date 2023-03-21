@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
 }
 body {
   overflow-x: 1;
@@ -19,6 +20,12 @@ body {
   }
   .start-panel {
     @apply absolute right-[20px] top-[500px] p-[20px] w-[250px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
+  }
+  .instructions {
+    @apply absolute left-[20px] top-[20px] px-[20px] max-w-full  rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)] z-[999];
+  }
+  .instructions-text {
+    @apply text-xs font-medium;
   }
   .button {
     @apply opacity-90 hover:opacity-80 active:opacity-100 border p-2 rounded-md;
