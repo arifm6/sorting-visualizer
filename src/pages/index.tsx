@@ -14,7 +14,7 @@ export default function Home() {
         <title>Sorting Visualizer</title>
         <meta name="description" content="A simple sorting visualizer app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <h1 className="text-center text-3xl p-4 w-full ">Sorting Visualizer</h1>
       <ControlPanel />
