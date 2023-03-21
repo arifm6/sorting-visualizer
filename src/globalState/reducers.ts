@@ -1,4 +1,4 @@
-import { insertionSort, sort } from "@/scripts/algorithms";
+import { sort } from "@/scripts/algorithms";
 import { AnimationType, SortingType, InitialStateType } from "./context";
 
 export const updateSpeed = (speed = 50) => {

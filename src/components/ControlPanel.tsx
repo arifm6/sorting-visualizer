@@ -66,6 +66,7 @@ export default function Header({}: Props) {
             value="insertion sort"
             name="sorting algorithm"
             onChange={() => handleAlgorithmChange("insertion sort")}
+            defaultChecked
           />
           <label htmlFor="insertion-sort">Insertion Sort</label>
           <br />

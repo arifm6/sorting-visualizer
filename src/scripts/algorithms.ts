@@ -1,4 +1,3 @@
-import { Frame } from "@/globalState/context";
 function getFrame(elements: number[], highlighted: number[]) {
   return { elements, highlighted };
 }
@@ -8,11 +7,13 @@ export function sort(arr: number[], algorithm: string) {
     case "insertion sort":
       frames = [...frames, ...insertionSort(arr)];
       break;
+    case "selection sort":
+      frames = [...frames, ...selectionSort(arr)];
   }
   frames.push(getFrame([], [-1, -1]));
   return frames;
 }
-export function insertionSort(arr: number[]) {
+function insertionSort(arr: number[]) {
   const frames = [];
   for (let i = 1; i < arr.length; i++) {
     const key = arr[i];
@@ -29,5 +30,28 @@ export function insertionSort(arr: number[]) {
     }
     arr[j + 1] = key;
   }
+  return frames;
+}
+
+function selectionSort(arr: number[]) {
+  const frames = [];
+  for (let i = 0; i < arr.length - 1; i++) {
+    var minIndex = i;
+    frames.push(getFrame([], [i, minIndex]));
+    var j = 0;
+    for (j = i + 1; j < arr.length - 1; j++) {
+      frames.push(getFrame([], [i, minIndex, j]));
+
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    //swap indices
+    const temp = arr[i];
+    arr[i] = arr[minIndex];
+    arr[minIndex] = temp;
+    frames.push(getFrame([i, minIndex], [j, minIndex]));
+  }
+
   return frames;
 }

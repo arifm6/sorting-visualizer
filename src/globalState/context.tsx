@@ -37,7 +37,7 @@ export const initialState = {
     animationFrameIndex: 0,
   },
   sorting: {
-    algorithm: "",
+    algorithm: "insertion sort",
     originalArray: new Array(50),
 
     array: new Array(50),
