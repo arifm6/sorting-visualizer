@@ -254,15 +254,16 @@ function shellSort(arr: number[]) {
       // the correct location for a[i] is found
       let j: number;
       for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
-        frames.push(getFrame([j, j - gap], [i, j - gap]));
-
-        frames.push(getFrame([], [j, j - gap]));
+        frames.push(getFrame([j, j - gap], [i, j - gap, j]));
 
         arr[j] = arr[j - gap];
+        frames.push(getFrame([], [j, j - gap]));
       }
+      frames.push(getFrame([], [i, j]));
       // put temp (the original a[i]) in its correct
       // location
       arr[j] = temp;
+      frames.push(getFrame([], [i, j]));
     }
   }
 
