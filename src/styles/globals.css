@@ -39,4 +39,7 @@ body {
   .array-value-font {
     font-size: min(1vw, 1vh);
   }
+  .height-transition {
+    transition: height 0.25s ease-in-out;
+  }
 }

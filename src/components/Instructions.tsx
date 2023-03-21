@@ -10,7 +10,7 @@ export default function Instructions({}: Props) {
   return (
     <Draggable nodeRef={nodeRef} cancel=".disable-drag">
       <div
-        className={`instructions flex flex-col overflow-hidden  transition-all duration-300 `}
+        className={`instructions flex flex-col overflow-hidden  height-transition `}
         ref={nodeRef}
         style={{ height: isOpen ? nodeRef.current?.scrollHeight : "0px" }}
       >
