@@ -27,6 +27,8 @@ export function sort(arr: number[], algorithm: string) {
       }
 
       break;
+    case "bubble sort":
+      frames = [...frames, ...bubbleSort(arr)];
   }
   frames.push(getFrame([], [-1, -1]));
   return frames;
@@ -208,4 +210,22 @@ function mergeSort(arr: number[], frames: Frame[]) {
   }
 
   return { tempArray: sorted, tempFrames: frames };
+}
+
+function bubbleSort(arr: number[]) {
+  const frames = [];
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      frames.push(getFrame([], [j, j + 1]));
+      if (arr[j] > arr[j + 1]) {
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+
+        frames.push(getFrame([j, j + 1], [j, j + 1]));
+      }
+    }
+  }
+  return frames;
 }
