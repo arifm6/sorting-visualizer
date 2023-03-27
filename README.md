@@ -1,38 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sorting Visualizer
 
-## Getting Started
+Welcome to my sorting visualizer. In this app, you can see how various sorting algorithms function with different array sizes and settings. For a demo, you can visit [https://sorting-visualizer-arifm6.vercel.app/](https://sorting-visualizer-arifm6.vercel.app/). You can also clone the repo and run yarn dev or npm run dev.
 
-First, run the development server:
+## Sorting Algorithms
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### `Insertion Sort`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Insertion sort is a simple sorting algorithm that sorts a list by comparing items one at a time. It is relatively inefficient on large unsorted lists.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### `Selection Sort`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Selection sort is another simple sorting algorithm that sorts the array one index at a time by finding the next smallest item and placing it in its appropriate index.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### `Quick Sort`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+QuickSort is a divide and conquer algorithm that picks an element as a pivot and partitions the list around that pivot. There are many different versions of quicksort, namely with deciding what element to use as a pivot.
 
-## Learn More
+### `Merge Sort`
 
-To learn more about Next.js, take a look at the following resources:
+Merge Sort is also a divide and conquer algorithm that sorts the array by dividing it into many smaller subarrays, sorting the subarrays, and then merging the subarrays back into one array.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `Bubble Sort`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Bubble Sort is another simple sorting algorithm that repeatedly passes through a list of items and swaps adjacent elements based on the correct intended order.
 
-## Deploy on Vercel
+### `Shell Sort`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Shell Sort is a sorting algorithm that builds on top of insertion sort. In traditional insertion sort, elements are compared one at a time. In Shell Sort, we are able to make swaps across larger distances without needed to compare any intermediate distance. We continuously do this and reduce the distance until we perform insertion sort on our final step.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Control Panel
+
+The control panel is where you can adjust the settings of the app. Here you can change algorithm, adjust array size, randomize array, and adjust animation speed.
+
+## Animation Panel
+
+The animation panel is where you can run the animation and go through the different phases of the animation. Here you can skip through the animation one frame at a time, start/pause a real time animation, or skip to the beginning/end of the sorting cycle.

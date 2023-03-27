@@ -3,7 +3,6 @@ import {
   decrementCurrentFrameIndex,
   incrementCurrentFrameIndex,
   setCurrentFrameIndex,
-  setFrameIndexInterval,
   swapArrayIndices,
   updateArray,
   updateHighlighted,

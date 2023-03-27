@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import React from "react";
 import AccordionItem from "./AccordionItem";
 type Props = {
   accordionData: any;

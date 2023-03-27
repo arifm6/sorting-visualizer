@@ -1,19 +1,12 @@
 import { AppContext } from "@/globalState/context";
 import {
-  decrementCurrentFrameIndex,
   incrementAnimationFrameIndex,
-  incrementCurrentFrameIndex,
   setActive,
   setAnimationFrameIndex,
   setFrameIndexInterval,
   setInactive,
 } from "@/globalState/reducers";
-import {
-  animateFrame,
-  skipToBeginning,
-  skipToEnd,
-  startAnimation,
-} from "@/scripts/animate";
+import { animateFrame, skipToBeginning, skipToEnd } from "@/scripts/animate";
 import React, { use, useContext, useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 type Props = {};
@@ -37,6 +30,7 @@ export default function StartPanel({}: Props) {
       dispatch(setInactive());
     }
   }, [state.animation.animationFrameIndex]);
+  //initial point for starting animation
   useEffect(() => {
     clearInterval(state.animation.frameIndexInterval);
     dispatch(setAnimationFrameIndex(state.sorting.currentFrameIndex));
@@ -52,6 +46,7 @@ export default function StartPanel({}: Props) {
       clearInterval(state.animation.frameIndexInterval);
     }
   }, [state.animation.active]);
+
   const buttonStyle = `start-panel-button disable-drag `;
 
   return (

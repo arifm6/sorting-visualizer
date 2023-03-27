@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Accordion from "./Accordion";
 import { useContext } from "react";
 import Draggable from "react-draggable";
@@ -8,7 +8,6 @@ import {
   randomizeArray,
   setActive,
   setCurrentFrameIndex,
-  setFrameIndexInterval,
   setInactive,
   updateAlgorithm,
   updateArraySize,
@@ -34,9 +33,11 @@ export default function Header({}: Props) {
   useEffect(() => {
     resetBoard();
   }, [state.sorting.array.length]);
+  //whenever algo is changed, make new frames
   useEffect(() => {
     dispatch(generateFrames());
   }, [state.sorting.algorithm]);
+  //if changed during animation etc
   function handleAlgorithmChange(algorithm: string) {
     dispatch(setInactive());
     skipToBeginning(state, dispatch);
@@ -45,6 +46,7 @@ export default function Header({}: Props) {
     dispatch(updateHighlighted([-1, -1]));
     dispatch(updateAlgorithm(algorithm));
   }
+  //lock to adjust animation speed during algorithm
   const [activeSpeedLock, setActiveSpeedLock] = useState(false);
   useEffect(() => {
     if (activeSpeedLock) {
@@ -58,7 +60,7 @@ export default function Header({}: Props) {
     {
       accordionTitle: "Algorithms",
       accordionContent: (
-        <form className="[&>input]:mr-3 disable-drag space-y-2 mb-2">
+        <form className="[&>input]:mr-3 disable-drag space-y-2 my-2">
           <input
             id="insertion-sort"
             type="radio"
