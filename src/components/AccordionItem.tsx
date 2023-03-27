@@ -17,19 +17,19 @@ export default function AccordionItem({
       <div
         className={`flex ${
           isActive ? "rounded-t-[5px]" : "rounded-[5px]"
-        } bg-[rgba(0,0,0,0.5)]  px-2 space-x-2 cursor-pointer`}
+        } bg-[rgba(0,0,0,0.5)]  px-2 space-x-2  cursor-pointer`}
         onClick={() =>
           setIsActive((prevIsActive) => {
             return !prevIsActive;
           })
         }
       >
-        <button>{isActive ? "-" : "+"}</button>
+        <button className="text-xl">{isActive ? "-" : "+"}</button>
         <h1 className="disable-drag">{accordionTitle}</h1>
       </div>
       <div
         ref={contentElement}
-        className={`px-6 overflow-hidden transition-all ease-in-out bg-[rgba(0,0,0,0.3)] rounded-b-md`}
+        className={`px-6  overflow-hidden transition-all ease-in-out bg-[rgba(0,0,0,0.3)] rounded-b-md`}
         style={
           isActive
             ? { height: contentElement.current?.scrollHeight }

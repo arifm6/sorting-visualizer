@@ -58,9 +58,8 @@ export default function Header({}: Props) {
     {
       accordionTitle: "Algorithms",
       accordionContent: (
-        <form className="[&>input]:mr-2 disable-drag">
+        <form className="[&>input]:mr-3 disable-drag space-y-2 mb-2">
           <input
-            className=""
             id="insertion-sort"
             type="radio"
             value="insertion sort"
@@ -149,7 +148,7 @@ export default function Header({}: Props) {
       accordionTitle: "Animation Settings",
       accordionContent: (
         <form className="flex flex-col items-center disable-drag">
-          <label htmlFor="">Animation Speed</label>
+          <label htmlFor="animation-speed">Animation Speed</label>
           <input
             type="range"
             id="animation-speed"

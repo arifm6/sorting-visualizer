@@ -58,7 +58,7 @@ export default function StartPanel({}: Props) {
     <Draggable nodeRef={nodeRef} cancel=".disable-drag">
       <div className="flex start-panel flex-col" ref={nodeRef}>
         <h1 className="font-bold pb-1 cursor-default  text-center">
-          <span className="text-blue-400">Animation Panel</span>
+          <span className="text-blue-100">Animation Panel</span>
         </h1>
         <div className=" grid grid-rows-2 grid-cols-3 gap-2">
           <button

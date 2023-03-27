@@ -19,7 +19,7 @@ body {
     @apply absolute w-[250px] right-[20px] top-[20px]  p-[20px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
   }
   .start-panel {
-    @apply absolute right-[20px] top-[500px] p-[20px] w-[250px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
+    @apply absolute right-[20px] top-[540px] p-[20px] w-[250px] rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)];
   }
   .instructions {
     @apply absolute left-[20px] top-[20px] px-[20px] max-w-full  rounded-lg bg-[rgba(0,0,0,0.6)] text-white shadow-[5px_5px_10px_rgba(0,0,0,0.5)] z-[999];
